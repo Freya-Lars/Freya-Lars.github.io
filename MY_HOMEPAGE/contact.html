@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="common.css">
+    <style>
+        /* 主内容区域样式 */
+        .contact-intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .contact-intro p {
+            font-size: 1.3rem;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .contact-info,
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-info:hover,
+        .contact-form:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #4a69bd;
+            position: relative;
+        }
+
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: #4a69bd;
+            border-radius: 2px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin: 0 0 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+            display: flex;
+            align-items: center;
+        }
+
+        h2 i {
+            margin-right: 10px;
+            color: #4a69bd;
+        }
+
+        /* 联系信息样式 */
+        .contact-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contact-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .contact-list i {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4a69bd, #2c3e50);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        /* 表单样式 */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #eaeaea;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #4a69bd;
+            box-shadow: 0 0 0 3px rgba(74, 105, 189, 0.2);
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            background: linear-gradient(135deg, #2c3e50, #4a69bd);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            nav ul li {
+                margin: 5px 10px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.7rem;
+            }
+
+            .contact-info,
+            .contact-form {
+                padding: 20px;
+            }
+
+            .contact-list li {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav ul li a {
+                font-size: 16px;
+                padding: 8px 12px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            input,
+            textarea {
+                padding: 12px;
+            }
+
+            button {
+                padding: 12px 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我</a></li>
+                <li><a href="contact.html">联系我</a></li>
+                <li><a href="portfolio.html">爱好/作品页</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="contact-intro">
+            <h1>联系我</h1>
+            <p>您可以通过以下方式联系到我</p>
+        </div>
+
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2><i class="fas fa-address-card"></i>联系方式</h2>
+                <ul class="contact-list">
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <span>邮箱：123456789@qq.com</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <span>手机号：12345678901</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>地址：浙江省杭州市拱墅区XX大学</span>
+                    </li>
+                    <li>
+                        <i class="fab fa-weixin"></i>
+                        <span>微信：fuxinyuan123</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="contact-form">
+                <h2><i class="fas fa-paper-plane"></i>发送消息</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="name">姓名：</label>
+                        <input type="text" id="name" name="name" required placeholder="请输入您的姓名">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">邮箱：</label>
+                        <input type="email" id="email" name="email" required placeholder="请输入您的邮箱">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">消息：</label>
+                        <textarea id="message" name="message" rows="4" required placeholder="请输入您想发送的消息..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">发送消息</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>联系我们：123456789 | 邮箱：123456789@qq.com</p>
+    </footer>
+</body>
+
+</html>
