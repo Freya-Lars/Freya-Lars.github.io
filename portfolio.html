@@ -1,13 +1,241 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>关于我</title>
-    </head>
-    <body>
-       <header>
-         <nav>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱好与作品</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="common.css">
+    <style>
+        /* 文章内容样式 */
+        article {
+            background-color: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        article:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #4a69bd;
+            position: relative;
+        }
+
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: #4a69bd;
+            border-radius: 2px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 2.2rem;
+            margin: 0 0 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+            display: flex;
+            align-items: center;
+        }
+
+        h2 i {
+            margin-right: 15px;
+            color: #4a69bd;
+            background: linear-gradient(135deg, #4a69bd, #2c3e50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* 视频容器样式 */
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            margin: 30px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* 列表样式 */
+        ol,
+        ul {
+            margin-left: 20px;
+            margin-bottom: 25px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        ol>li {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        ul {
+            list-style: none;
+            margin-top: 10px;
+            margin-left: 30px;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 30px;
+            color: #555;
+        }
+
+        ul li:before {
+            content: "•";
+            color: #4a69bd;
+            font-weight: bold;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+
+        /* 项目卡片样式 */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-left: 5px solid #4a69bd;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #e9ecef, #dee2e6);
+        }
+
+        .project-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .project-card h3 i {
+            margin-right: 10px;
+            color: #4a69bd;
+        }
+
+        .project-card p {
+            font-size: 1.1rem;
+            color: #666;
+            margin: 0;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            header nav ul li {
+                margin: 5px 10px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            article {
+                padding: 25px;
+            }
+
+            main>nav ul {
+                gap: 15px;
+            }
+
+            main>nav ul li a {
+                font-size: 1.1rem;
+                padding: 8px 16px;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header nav ul li a {
+                font-size: 16px;
+                padding: 8px 12px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            article {
+                padding: 20px;
+            }
+
+            main>nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
             <ul>
                 <li><a href="index.html">首页</a></li>
                 <li><a href="about.html">关于我</a></li>
@@ -15,43 +243,93 @@
                 <li><a href="portfolio.html">爱好/作品页</a></li>
             </ul>
         </nav>
-       </header>
+    </header>
 
-       <main>
+    <main>
+        <h1>我的爱好与作品</h1>
+
         <nav>
             <ul>
-                <li><a href="#hobby">爱好</a></li>
-                <li><a href="#work">作品</a></li>
+                <li><a href="#hobby"><i class="fas fa-heart"></i> 爱好</a></li>
+                <li><a href="#work"><i class="fas fa-briefcase"></i> 作品</a></li>
             </ul>
         </nav>
+
         <article id="hobby">
-            <p>我喜欢摄影、旅行、看书、听歌</p>
-            <p>下面是我在旅行过程中拍摄的视频</p>
-            <iframe src="https://www.baidu.com" title="我的vlog"></iframe>
+            <h2><i class="fas fa-camera"></i>我的爱好</h2>
+            <p>我喜欢摄影、旅行、看书、听歌。这些爱好让我的生活更加丰富多彩，也让我有机会从不同角度观察和体验世界。</p>
+            <p>下面是我在旅行过程中拍摄的视频：</p>
+
+            <div class="video-container">
+                <iframe src="https://www.bilibili.com" title="我的旅行vlog"></iframe>
+            </div>
+
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3><i class="fas fa-camera-retro"></i> 摄影</h3>
+                    <p>喜欢捕捉生活中的美好瞬间，擅长风景和人像摄影。</p>
+                </div>
+                <div class="project-card">
+                    <h3><i class="fas fa-plane"></i> 旅行</h3>
+                    <p>已经游历过国内15个省份，喜欢探索不同的文化和风景。</p>
+                </div>
+                <div class="project-card">
+                    <h3><i class="fas fa-book"></i> 阅读</h3>
+                    <p>每年阅读超过30本书，喜欢科幻、历史和哲学类书籍。</p>
+                </div>
+                <div class="project-card">
+                    <h3><i class="fas fa-music"></i> 音乐</h3>
+                    <p>喜欢听古典音乐和独立音乐，也会弹奏琵琶。</p>
+                </div>
+            </div>
         </article>
 
         <article id="work">
+            <h2><i class="fas fa-laptop-code"></i>我的作品</h2>
+
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3><i class="fas fa-trophy"></i> 比赛竞赛项目</h3>
+                    <ul>
+                        <li>国创项目</li>
+                        <li>省创项目</li>
+                        <li>校创项目</li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <h3><i class="fas fa-flask"></i> 科研项目经历</h3>
+                    <ul>
+                        <li>基于深度学习的图像识别系统</li>
+                        <li>基于强化学习的智能体控制</li>
+                        <li>基于神经网络的语音识别系统</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #2c3e50; font-size: 1.5rem;">项目详情</h3>
             <ol>
                 <li>比赛竞赛项目
                     <ul>
-                        <li>1.国创</li>
-                        <li>2.省创</li>
-                        <li>3.校创</li>
+                        <li>1. 国创 </li>
+                        <li>2. 省创 </li>
+                        <li>3. 校创 </li>
                     </ul>
                 </li>
                 <li>科研项目经历
                     <ul>
-                        <li>1.基于深度学习的图像识别系统</li>
-                        <li>2.基于强化学习的智能体控制</li>
-                        <li>3.基于神经网络的语音识别系统</li>
+                        <li>1. 基于深度学习的图像识别系统 </li>
+                        <li>2. 基于强化学习的智能体控制 </li>
+                        <li>3. 基于神经网络的语音识别系统</li>
                     </ul>
                 </li>
             </ol>
         </article>
-       </main>
+    </main>
 
-       <footer>
-        <p>联系我们：123456789</p>
-       </footer>
-    </body>
-</html>   
+    <footer>
+        <p>联系我们：123456789 | 邮箱：example@email.com</p>
+    </footer>
+</body>
+
+</html>
