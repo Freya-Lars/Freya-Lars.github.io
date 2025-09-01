@@ -6,15 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>关于我</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="common.css">
     <style>
         /* 主内容区域样式 */
         article {
-            background-color: white;
+            background-color: var(--section-bg);
             border-radius: 12px;
             padding: 40px;
             margin: 20px 0;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 5px 20px var(--shadow-bg);
             transition: transform 0.3s ease;
         }
 
@@ -24,11 +25,11 @@
 
         h1 {
             font-size: 3rem;
-            color: #2c3e50;
+            color: var(--text-color);
             text-align: center;
             margin-bottom: 30px;
             padding-bottom: 15px;
-            border-bottom: 2px solid #4a69bd;
+            border-bottom: 2px solid var(--border-color);
             position: relative;
         }
 
@@ -40,29 +41,29 @@
             transform: translateX(-50%);
             width: 100px;
             height: 4px;
-            background: #4a69bd;
+            background: var(--section-bg);
             border-radius: 2px;
         }
 
         h2 {
-            color: #2c3e50;
+            color: var(--text-color);
             font-size: 2rem;
             margin: 30px 0 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #eaeaea;
+            border-bottom: 2px solid var(--border-color);
             display: flex;
             align-items: center;
         }
 
         h2 i {
             margin-right: 10px;
-            color: #4a69bd;
+            color: var(--text-color);
         }
 
         p {
             font-size: 1.2rem;
             margin-bottom: 20px;
-            color: #555;
+            color: var(--text-color);
             line-height: 1.8;
         }
 
@@ -72,7 +73,7 @@
             border-collapse: collapse;
             margin: 25px 0;
             font-size: 1.1rem;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 0 20px var(--shadow-color);
             border-radius: 10px;
             overflow: hidden;
         }
@@ -81,23 +82,28 @@
         td {
             padding: 15px 20px;
             text-align: left;
-            border-bottom: 1px solid #eaeaea;
+            border-bottom: 1px solid var(--border-color);
         }
 
         th {
-            background-color: #4a69bd;
-            color: white;
+            background-color: var(--header-bg);
+            color: #fff;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
+        tr {
+            background-color: var(--section-bg);
+            color: var(--text-color);
+        }
+
         tr:nth-child(even) {
-            background-color: #f8f9fa;
+            background-color: rgba(74, 105, 189, 0.1);
         }
 
         tr:hover {
-            background-color: #edf2f7;
+            background-color: rgba(74, 105, 189, 0.2);
             transition: background-color 0.3s;
         }
 
@@ -123,8 +129,8 @@
         }
 
         .skill-tag {
-            background: linear-gradient(135deg, #4a69bd, #2c3e50);
-            color: white;
+            background: var(--header-bg);
+            color: #fff;
             padding: 8px 20px;
             border-radius: 30px;
             font-size: 1rem;
@@ -136,12 +142,98 @@
             margin-right: 8px;
         }
 
+        /* 技能标签样式 */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .skill-tag {
+            background: var(--header-bg);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .skill-tag i {
+            margin-right: 8px;
+        }
+
+        /* 动态技能条样式 */
+        .skills-bars-container {
+            margin: 30px 0;
+        }
+
+        .skill-bar {
+            margin-bottom: 25px;
+        }
+
+        .skill-name {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .skill-value {
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .skill-bar-outer {
+            width: 100%;
+            height: 20px;
+            background-color: rgba(74, 105, 189, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .skill-bar-inner {
+            height: 100%;
+            width: 0;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #4a69bd, #6a89cc, #1e3799, #0c2461);
+            transition: width 1.5s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            box-shadow: 0 0 10px rgba(74, 105, 189, 0.5);
+        }
+
+        .skill-percent {
+            color: white;
+            font-weight: bold;
+            padding-right: 10px;
+            font-size: 0.9rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        h3 {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            margin: 20px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* 雷达图样式 */
+        .radar-chart-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 30px auto;
+            position: relative;
+        }
+
         /* 响应式设计 */
         @media (max-width: 768px) {
-            nav ul li {
-                margin: 5px 10px;
-            }
-
             h1 {
                 font-size: 2.2rem;
             }
@@ -195,6 +287,9 @@
                 <li><a href="about.html">关于我</a></li>
                 <li><a href="contact.html">联系我</a></li>
                 <li><a href="portfolio.html">爱好/作品页</a></li>
+                <li id="theme-toggle-container">
+                    <button id="theme-toggle">☀️</button>
+                </li>
             </ul>
         </nav>
     </header>
@@ -240,6 +335,64 @@
                 </tbody>
             </table>
 
+            <h2><i class="fas fa-chart-bar"></i>技能可视化</h2>
+            <h3>技能熟练度</h3>
+            <div class="skills-bars-container">
+                <div class="skill-bar">
+                    <div class="skill-name">Python</div>
+                    <div class="skill-bar-outer">
+                        <div class="skill-bar-inner" data-percent="85">
+                            <span class="skill-percent">85%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-name">C++</div>
+                    <div class="skill-bar-outer">
+                        <div class="skill-bar-inner" data-percent="75">
+                            <span class="skill-percent">75%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-name">MATLAB</div>
+                    <div class="skill-bar-outer">
+                        <div class="skill-bar-inner" data-percent="80">
+                            <span class="skill-percent">80%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-name">TensorFlow</div>
+                    <div class="skill-bar-outer">
+                        <div class="skill-bar-inner" data-percent="70">
+                            <span class="skill-percent">70%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-name">PyTorch</div>
+                    <div class="skill-bar-outer">
+                        <div class="skill-bar-inner" data-percent="65">
+                            <span class="skill-percent">65%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-name">MySQL</div>
+                    <div class="skill-bar-outer">
+                        <div class="skill-bar-inner" data-percent="60">
+                            <span class="skill-percent">60%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>技能雷达图</h3>
+            <div class="radar-chart-container">
+                <canvas id="skillsRadarChart"></canvas>
+            </div>
+
             <h2><i class="fas fa-book-open"></i>学习资源</h2>
             <p>我经常访问<a href="https://www.baidu.com" target="_blank" rel="noopener">百度</a>、<a
                     href="https://stackoverflow.com" target="_blank" rel="noopener">Stack Overflow</a>、<a
@@ -252,6 +405,92 @@
     <footer>
         <p>联系我们：123456789 | 邮箱：example@email.com</p>
     </footer>
+    <script src="common.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 动态技能条动画
+            const skillBars = document.querySelectorAll('.skill-bar-inner');
+
+            // 创建Intersection Observer实例
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // 当技能条进入视口时触发动画
+                        const skillBar = entry.target;
+                        const percent = skillBar.getAttribute('data-percent');
+
+                        // 设置宽度和百分比文本
+                        setTimeout(() => {
+                            skillBar.style.width = percent + '%';
+                            skillBar.querySelector('.skill-percent').textContent = percent + '%';
+                        }, 100);
+
+                        // 动画完成后停止观察
+                        observer.unobserve(skillBar);
+                    }
+                });
+            }, {
+                threshold: 0.8 // 当80%的元素可见时触发
+            });
+
+            // 开始观察所有技能条
+            skillBars.forEach(bar => {
+                observer.observe(bar);
+            });
+
+            // 雷达图配置和数据
+            const ctx = document.getElementById('skillsRadarChart').getContext('2d');
+
+            const skillsData = {
+                labels: [
+                    'Python编程',
+                    'C++开发',
+                    '机器学习',
+                    '神经网络',
+                    '数据分析',
+                    '算法设计'
+                ],
+                datasets: [{
+                    label: '我的技能水平',
+                    data: [85, 75, 80, 70, 75, 80],
+                    fill: true,
+                    backgroundColor: 'rgba(74, 105, 189, 0.2)',
+                    borderColor: 'rgb(74, 105, 189)',
+                    pointBackgroundColor: 'rgb(74, 105, 189)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(74, 105, 189)'
+                }]
+            };
+
+            const config = {
+                type: 'radar',
+                data: skillsData,
+                options: {
+                    elements: {
+                        line: {
+                            borderWidth: 3
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                            ticks: {
+                                stepSize: 20
+                            }
+                        }
+                    }
+                }
+            };
+
+            // 创建雷达图
+            const skillsRadarChart = new Chart(ctx, config);
+        });
+    </script>
 </body>
 
 </html>

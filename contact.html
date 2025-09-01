@@ -16,7 +16,7 @@
 
         .contact-intro p {
             font-size: 1.3rem;
-            color: #555;
+            color: var(--text-color);
             margin-top: 10px;
         }
 
@@ -31,11 +31,12 @@
         .contact-form {
             flex: 1;
             min-width: 300px;
-            background-color: white;
+            background-color: var(--section-color);
             border-radius: 12px;
             padding: 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 5px 20px var(--shadow-color);
             transition: transform 0.3s ease;
+            border: 1px solid var(--border-color);
         }
 
         .contact-info:hover,
@@ -45,7 +46,7 @@
 
         h1 {
             font-size: 3rem;
-            color: #2c3e50;
+            color: var(--text-color);
             text-align: center;
             margin-bottom: 10px;
             padding-bottom: 15px;
@@ -70,7 +71,7 @@
             font-size: 2rem;
             margin: 0 0 25px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #eaeaea;
+            border-bottom: 2px solid var(--border-color);
             display: flex;
             align-items: center;
         }
@@ -91,12 +92,13 @@
             align-items: center;
             margin-bottom: 20px;
             font-size: 1.2rem;
+            color: var(--text-color);
         }
 
         .contact-list i {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #4a69bd, #2c3e50);
+            background: var(--header-bg);
             color: white;
             border-radius: 50%;
             display: flex;
@@ -115,7 +117,7 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
-            color: #2c3e50;
+            color: var(--text-bg);
             font-size: 1.1rem;
         }
 
@@ -123,10 +125,12 @@
         textarea {
             width: 100%;
             padding: 15px;
-            border: 2px solid #eaeaea;
+            border: 2px solid var(--border-bg);
             border-radius: 8px;
             font-size: 1.1rem;
             transition: border-color 0.3s;
+            background-color: var(--section-bg);
+            color: var(--text-color);
         }
 
         input:focus,
@@ -142,7 +146,7 @@
         }
 
         button {
-            background: linear-gradient(135deg, #2c3e50, #4a69bd);
+            background: var(--header-bg);
             color: white;
             border: none;
             padding: 15px 30px;
@@ -157,7 +161,7 @@
 
         button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 7px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 7px 15px var(--shadow-bg);
         }
 
         button:active {
@@ -222,6 +226,9 @@
                 <li><a href="about.html">关于我</a></li>
                 <li><a href="contact.html">联系我</a></li>
                 <li><a href="portfolio.html">爱好/作品页</a></li>
+                <li id="theme-toggle-container">
+                    <button id="theme-toggle">☀️</button>
+                </li>
             </ul>
         </nav>
     </header>
@@ -279,6 +286,7 @@
     <footer>
         <p>联系我们：123456789 | 邮箱：123456789@qq.com</p>
     </footer>
+    <script src="common.js"></script>
 </body>
 
 </html>

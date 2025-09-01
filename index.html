@@ -5,63 +5,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人主页</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <link rel="stylesheet" href="common.css">
     <style>
-        /* 主内容区域样式 */
+        /* Hero区域 */
+        #hero {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #typewriter {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            min-height: 80px;
+            color: var(--text-color);
+        }
+
+        /* 内容区域 */
+        section {
+            background-color: var(--section-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 5px 20px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+
         h1 {
-            font-size: 3rem;
-            color: #2c3e50;
+            font-size: 2.8rem;
+            color: var(--text-color);
             text-align: center;
             margin-bottom: 20px;
             padding-bottom: 15px;
             border-bottom: 2px solid #4a69bd;
         }
 
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            text-align: center;
-            color: #555;
-        }
-
-        section {
-            background-color: white;
-            border-radius: 12px;
-            padding: 30px;
-            margin: 40px 0;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease;
-        }
-
-        section:hover {
-            transform: translateY(-5px);
-        }
-
         h2 {
-            color: #2c3e50;
+            color: var(--text-color);
             font-size: 2rem;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #eaeaea;
+            border-bottom: 2px solid var(--border-color);
         }
 
-        strong {
-            color: #4a69bd;
-            font-weight: 700;
+        h3 {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            margin: 25px 0 15px;
         }
 
-        em {
-            color: #e74c3c;
-            font-style: italic;
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
         }
 
-        img {
-            display: block;
-            max-width: 100%;
+        /* 图片左文字右布局样式 */
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .image-container {
+            flex: 1;
+            min-width: 250px;
+            max-width: 400px;
+        }
+
+        .image-container img {
+            width: 100%;
             height: auto;
-            margin: 25px auto;
             border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px var(--shadow-color);
+            display: block;
+        }
+
+        .text-container {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .text-container p {
+            text-align: left;
         }
 
         hr {
@@ -71,20 +104,1128 @@
             margin: 30px 0;
         }
 
+        /* 重新设计的时间轴样式 */
+        /* .timeline-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #4a69bd, #6a89cc, #4a69bd);
+            border-radius: 10px;
+            z-index: 1;
+        }
+
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            margin-bottom: 50px;
+            display: block;
+            z-index: 2;
+            clear: both;
+        }
+
+        .timeline-item:nth-child(odd) {
+            align-self: flex-start;
+            padding-right: 60px;
+            text-align: right;
+            float: left;
+        }
+
+        .timeline-item:nth-child(even) {
+            align-self: flex-start;
+            padding-left: 60px;
+            text-align: left;
+            float: right;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: #fff;
+            border: 4px solid #4a69bd;
+            border-radius: 50%;
+            z-index: 3;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 3px rgba(74, 105, 189, 0.2);
+            top: 30px;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -12px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -12px;
+        }
+
+        .timeline-content {
+            padding: 25px;
+            background-color: var(--section-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            width: 100%;
+        }
+
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            right: -15px;
+            border-width: 10px 0 10px 15px;
+            border-color: transparent transparent transparent var(--section-bg);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -15px;
+            border-width: 10px 15px 10px 0;
+            border-color: transparent var(--section-bg) transparent transparent;
+        } */
+
+        /* 重新设计的时间轴样式 - 所有卡片在时间轴右侧 */
+        .timeline-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10%;
+            /* 将时间轴移到左侧 */
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #4a69bd, #6a89cc, #4a69bd);
+            border-radius: 10px;
+            z-index: 1;
+        }
+
+        .timeline-item {
+            position: relative;
+            width: 85%;
+            /* 增加宽度以适应新布局 */
+            margin-bottom: 50px;
+            margin-left: 15%;
+            /* 为时间轴留出空间 */
+            z-index: 2;
+            clear: both;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: #fff;
+            border: 4px solid #4a69bd;
+            border-radius: 50%;
+            z-index: 3;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 3px rgba(74, 105, 189, 0.2);
+            top: 30px;
+            left: -13%;
+            /* 调整小圆点位置 */
+        }
+
+        .timeline-content {
+            padding: 25px;
+            background-color: var(--section-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            width: 100%;
+        }
+
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+
+        .timeline-content::after {
+            left: -15px;
+            border-width: 10px 15px 10px 0;
+            border-color: transparent var(--section-bg) transparent transparent;
+        }
+
+
+
+        /* 重新设计的地图样式 */
+        .map-section {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        #map-container {
+            height: 500px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 30px 0;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        #travel-map {
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .map-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--section-bg);
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 10px;
+        }
+
+        .map-btn {
+            padding: 8px 15px;
+            background: #4a69bd;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .map-btn:hover {
+            background: #3c5aa8;
+        }
+
+        .map-marker-popup {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .map-marker-popup img {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-marker-popup h3 {
+            margin: 10px 0;
+            color: #4a69bd;
+        }
 
         /* 响应式设计 */
+        @media (max-width: 992px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 80px !important;
+                padding-right: 25px !important;
+                text-align: left !important;
+            }
+
+            .timeline-dot {
+                left: 21px !important;
+                right: auto !important;
+                top: 30px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content::after,
+            .timeline-item:nth-child(even) .timeline-content::after {
+                left: -15px;
+                right: auto;
+                border-width: 10px 15px 10px 0;
+                border-color: transparent var(--section-bg) transparent transparent;
+            }
+
+        }
+
         @media (max-width: 768px) {
-            nav ul li {
-                margin: 10px 5px;
-                /* 修改：在小屏幕上减小间距 */
+            #typewriter {
+                font-size: 1.8rem;
             }
 
             h1 {
                 font-size: 2.2rem;
             }
 
-            section {
-                padding: 20px;
+            .content-wrapper {
+                flex-direction: column;
+            }
+
+            .image-container {
+                max-width: 100%;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                padding-left: 60px !important;
+            }
+
+            .timeline-dot {
+                left: 11px !important;
+            }
+
+            #map-container {
+                height: 400px;
+            }
+        }
+
+        /* 横屏特定样式
+        @media (max-width: 992px) and (orientation: landscape) {
+            .timeline-item {
+                width: 45% !important;
+            }
+
+            .timeline-item:nth-child(odd) {
+                text-align: right !important;
+                padding-right: 40px !important;
+                padding-left: 0 !important;
+            }
+
+            .timeline-item:nth-child(even) {
+                padding-left: 40px !important;
+                padding-right: 0 !important;
+                text-align: left !important;
+            }
+
+            .timeline::before {
+                left: 50% !important;
+            }
+
+            .timeline-dot {
+                left: auto !important;
+                top: 30px !important;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-dot {
+                right: -12px !important;
+                left: auto !important;
+            }
+
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: -12px !important;
+                right: auto !important;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content::after {
+                right: -15px !important;
+                left: auto !important;
+                border-width: 10px 0 10px 15px !important;
+                border-color: transparent transparent transparent var(--section-bg) !important;
+            }
+
+            .timeline-item:nth-child(even) .timeline-content::after {
+                left: -15px !important;
+                right: auto !important;
+                border-width: 10px 15px 10px 0 !important;
+                border-color: transparent var(--section-bg) transparent transparent !important;
+            }
+        } */
+
+        /* 横屏特定样式 */
+        @media (max-width: 992px) and (orientation: landscape) {
+            .timeline::before {
+                left: 10% !important;
+            }
+
+            .timeline-item {
+                width: 85% !important;
+                margin-left: 15% !important;
+            }
+
+            .timeline-dot {
+                left: -13% !important;
+            }
+        }
+
+        /* 超小横屏设备 */
+        /* @media (max-width: 700px) and (orientation: landscape) {
+            .timeline-item {
+                width: 100% !important;
+                padding-left: 60px !important;
+                padding-right: 25px !important;
+            }
+
+            .timeline::before {
+                left: 20px !important;
+            }
+
+            .timeline-dot {
+                left: 11px !important;
+                right: auto !important;
+                top: 30px !important;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content::after,
+            .timeline-item:nth-child(even) .timeline-content::after {
+                left: -15px !important;
+                right: auto !important;
+                border-width: 10px 15px 10px 0 !important;
+                border-color: transparent var(--section-bg) transparent transparent !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #map-container {
+                height: 350px;
+            }
+
+            .map-controls {
+                top: 10px;
+                right: 10px;
+                flex-direction: column;
+            }
+        } */
+
+        /* 超小横屏设备 */
+        @media (max-width: 700px) and (orientation: landscape) {
+            .timeline::before {
+                left: 20px !important;
+            }
+
+            .timeline-item {
+                width: calc(100% - 60px) !important;
+                margin-left: 60px !important;
+            }
+
+            .timeline-dot {
+                left: -43px !important;
+            }
+        }
+
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-item {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .timeline-item:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .timeline-item:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .timeline-item:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .timeline-item:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        /* 地图标记动画 */
+        .leaflet-marker-icon {
+            transition: transform 0.3s;
+        }
+
+        .leaflet-marker-icon:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我</a></li>
+                <li><a href="contact.html">联系我</a></li>
+                <li><a href="portfolio.html">爱好/作品页</a></li>
+                <li id="theme-toggle-container">
+                    <button id="theme-toggle">☀️</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="hero">
+            <h1 id="typewriter"></h1>
+            <p>欢迎来到我的个人空间</p>
+        </section>
+
+        <h1>欢迎来到我的个人主页</h1>
+        <p>我是傅馨源，是一名大三学生</p>
+
+        <section>
+            <h2>互动式人生时间轴</h2>
+            <p>以下是我人生中的重要时刻和经历：</p>
+
+            <div class="timeline-container">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2023年9月</div>
+                            <h3>步入大学</h3>
+                            <p>开始了我的大学生活，选择了计算机科学专业</p>
+                            <div class="timeline-desc">
+                                <p>这是我人生的重要转折点，第一次离开家乡，来到新的城市学习。大学的第一年充满了挑战和新鲜感。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2024年3月</div>
+                            <h3>第一次参与项目开发</h3>
+                            <p>加入了学院的创新实验室，参与第一个Web开发项目</p>
+                            <div class="timeline-desc">
+                                <p>在这个项目中，我负责前端开发，学习了HTML、CSS和JavaScript的基础知识，为我的前端开发之路奠定了基础。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2024年6月</div>
+                            <h3>机器学习启蒙</h3>
+                            <p>参加了学校的机器学习研讨会，开始对AI产生浓厚兴趣</p>
+                            <div class="timeline-desc">
+                                <p>这次研讨会让我认识到机器学习的强大潜力，我开始自学Python和基本的机器学习算法，为后续的研究打下基础。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2025年3月</div>
+                            <h3>神经网络深入研究</h3>
+                            <p>开始专注于神经网络的研究，完成第一个图像识别项目</p>
+                            <div class="timeline-desc">
+                                <p>使用TensorFlow和Keras构建了一个卷积神经网络，成功实现了对CIFAR-10数据集的图像分类，准确率达到75%。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2025年7月</div>
+                            <h3>前端深入学习</h3>
+                            <p>系统学习现代前端开发技术，包括React和Vue框架</p>
+                            <div class="timeline-desc">
+                                <p>意识到前端技术在现代Web开发中的重要性，我开始深入学习React框架，并完成了多个个人项目，包括这个个人网站。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>"我的足迹"互动地图</h2>
+            <p>以下是我曾经旅行过的城市和地方：</p>
+
+            <div class="map-section">
+                <div id="map-container">
+                    <div id="travel-map"></div>
+                    <div class="map-controls">
+                        <button class="map-btn" id="zoom-in">放大</button>
+                        <button class="map-btn" id="zoom-out">缩小</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>我的工作</h2>
+            <div class="content-wrapper">
+                <div class="image-container">
+                    <img src="image/myphoto.jpg" alt="我的个人照片">
+                </div>
+                <div class="text-container">
+                    <p>我目前专注于<strong>神经网络研究</strong>和<em>机器学习</em>。</p>
+                    <p>我对人工智能领域充满热情，喜欢探索新的技术和方法。</p>
+                    <p>在我的研究中，我主要关注深度学习模型的优化和应用。</p>
+                </div>
+            </div>
+            <hr>
+        </section>
+    </main>
+    <footer>
+        <p>联系我们：123456789</p>
+    </footer>
+
+    <script src="common.js"></script>
+
+    <script>
+        // 动态打字机标题功能
+        document.addEventListener('DOMContentLoaded', function () {
+            const typewriterElement = document.getElementById('typewriter');
+            const texts = [
+                "你好，我是傅馨源",
+                "一名大三学生",
+                "专注于神经网络研究",
+                "热爱机器学习与AI"
+            ];
+            let textIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let typingSpeed = 100;
+
+            function typeWriter() {
+                const currentText = texts[textIndex];
+
+                if (isDeleting) {
+                    // 删除文字
+                    typewriterElement.textContent = currentText.substring(0, charIndex - 1);
+                    charIndex--;
+                    typingSpeed = 50; // 删除速度更快
+                } else {
+                    // 打字
+                    typewriterElement.textContent = currentText.substring(0, charIndex + 1);
+                    charIndex++;
+                    typingSpeed = 100; // 正常打字速度
+                }
+
+                // 判断状态转换
+                if (!isDeleting && charIndex === currentText.length) {
+                    // 完成打字，暂停一会儿然后开始删除
+                    isDeleting = true;
+                    typingSpeed = 2000; // 暂停2秒
+                } else if (isDeleting && charIndex === 0) {
+                    // 完成删除，切换到下一句话
+                    isDeleting = false;
+                    textIndex = (textIndex + 1) % texts.length;
+                    typingSpeed = 500; // 在开始新句子前暂停
+                }
+
+                setTimeout(typeWriter, typingSpeed);
+            }
+
+            // 启动打字机效果
+            setTimeout(typeWriter, 1000);
+
+            // 初始化时间轴交互
+            initTimeline();
+
+            // 初始化地图
+            initMap();
+        });
+
+        // 时间轴交互功能
+        function initTimeline() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+
+            timelineItems.forEach(item => {
+                const content = item.querySelector('.timeline-content');
+
+                // 鼠标悬停效果
+                item.addEventListener('mouseenter', () => {
+                    item.classList.add('active');
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    if (!content.classList.contains('show-desc')) {
+                        item.classList.remove('active');
+                    }
+                });
+
+                // 点击展开详情
+                content.addEventListener('click', (e) => {
+                    // 防止事件冒泡
+                    if (e.target.tagName === 'A') return;
+
+                    const desc = item.querySelector('.timeline-desc');
+                    const isShowing = desc.style.display === 'block';
+
+                    if (isShowing) {
+                        desc.style.display = 'none';
+                        content.classList.remove('show-desc');
+                        item.classList.remove('active');
+                    } else {
+                        // 先关闭所有其他描述
+                        document.querySelectorAll('.timeline-desc').forEach(d => {
+                            d.style.display = 'none';
+                        });
+                        document.querySelectorAll('.timeline-content').forEach(c => {
+                            c.classList.remove('show-desc');
+                        });
+                        document.querySelectorAll('.timeline-item').forEach(i => {
+                            i.classList.remove('active');
+                        });
+
+                        // 显示当前描述
+                        desc.style.display = 'block';
+                        content.classList.add('show-desc');
+                        item.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // 初始化地图
+        function initMap() {
+            // 创建地图实例
+            const map = L.map('travel-map').setView([35.8617, 104.1954], 4);
+
+            // 添加地图图层
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // 添加缩放控制
+            L.control.zoom({
+                position: 'topright'
+            }).addTo(map);
+
+            // 定义足迹地点数据
+            const locations = [
+                {
+                    name: "北京",
+                    coords: [39.9042, 116.4074],
+                    description: "中国的首都，拥有丰富的历史文化遗产",
+                    image: "image/beijing.jpg"
+                },
+                {
+                    name: "上海",
+                    coords: [31.2304, 121.4737],
+                    description: "中国最大的城市，现代化国际大都市",
+                    image: "image/shanghai.jpg"
+                },
+                {
+                    name: "广州",
+                    coords: [23.1291, 113.2644],
+                    description: "南方重要城市，以美食和文化闻名",
+                    image: "image/guangzhou.jpg"
+                },
+                {
+                    name: "成都",
+                    coords: [30.5728, 104.0668],
+                    description: "四川省会，以大熊猫和美食闻名",
+                    image: "image/chengdu.jpg"
+                },
+                {
+                    name: "杭州",
+                    coords: [30.2741, 120.1551],
+                    description: "浙江省会，以西湖和互联网产业闻名",
+                    image: "image/hangzhou.jpg"
+                }
+            ];
+
+            // 创建自定义定位图标
+            const createCustomIcon = (color) => {
+                return L.divIcon({
+                    className: 'custom-marker',
+                    html: `<div style="background-color: ${color}; width: 24px; height: 24px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;">
+                     <div style="background-color: white; width: 8px; height: 8px; border-radius: 50%;"></div>
+                   </div>`,
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12]
+                });
+            };
+
+            // 添加标记点 - 使用自定义定位图标
+            locations.forEach((location, index) => {
+                // 为不同地点使用不同颜色的标记
+                const colors = ['#4a69bd', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6'];
+                const marker = L.marker(location.coords, {
+                    icon: createCustomIcon(colors[index % colors.length])
+                }).addTo(map);
+
+                // 创建弹出内容
+                const popupContent = `
+            <div class="map-marker-popup">
+                <h3>${location.name}</h3>
+                <img src="${location.image}" alt="${location.name}">
+                <p>${location.description}</p>
+            </div>
+        `;
+
+                marker.bindPopup(popupContent);
+
+                // 添加悬停效果
+                marker.on('mouseover', function (e) {
+                    this.openPopup();
+                });
+            });
+
+            // 添加缩放按钮功能
+            document.getElementById('zoom-in').addEventListener('click', function () {
+                map.zoomIn();
+            });
+
+            document.getElementById('zoom-out').addEventListener('click', function () {
+                map.zoomOut();
+            });
+        }
+    </script>
+</body>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="common.css">
+    <style>
+        /* Hero区域 */
+        #hero {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #typewriter {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            min-height: 80px;
+            color: var(--text-color);
+        }
+
+        /* 内容区域 */
+        section {
+            background-color: var(--section-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 5px 20px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #4a69bd;
+        }
+
+        h2 {
+            color: var(--text-color);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        h3 {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            margin: 25px 0 15px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        /* 图片左文字右布局样式 */
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .image-container {
+            flex: 1;
+            min-width: 250px;
+            max-width: 400px;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            display: block;
+        }
+
+        .text-container {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .text-container p {
+            text-align: left;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #4a69bd, transparent);
+            margin: 30px 0;
+        }
+
+        /* 时间轴样式 */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px 0;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--border-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+        }
+
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            margin-bottom: 50px;
+            clear: both;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 50px;
+            float: left;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 50px;
+            float: right;
+            text-align: left;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: #4a69bd;
+            border: 4px solid var(--section-bg);
+            border-radius: 50%;
+            z-index: 1;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 3px #4a69bd;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -10px;
+            right: auto;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background-color: var(--section-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content h3 {
+            margin-top: 0;
+            color: #4a69bd;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: #4a69bd;
+            margin-bottom: 10px;
+        }
+
+        .timeline-desc {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .timeline-item.active .timeline-dot {
+            background-color: #ff6b6b;
+            transform: scale(1.3);
+            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.3);
+        }
+
+        .timeline-item.active .timeline-content {
+            box-shadow: 0 8px 16px var(--shadow-color);
+        }
+
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.2);
+        }
+
+        .timeline-item:hover .timeline-content {
+            box-shadow: 0 6px 12px var(--shadow-color);
+        }
+
+        .explanation {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+
+        .explanation h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .code-example {
+            background: #2c3e50;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+
+        .fix-point {
+            color: #e74c3c;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        /* 地图样式 */
+        #map-container {
+            height: 500px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 30px 0;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+
+        #travel-map {
+            height: 100%;
+            width: 100%;
+        }
+
+        .map-marker-popup img {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            #typewriter {
+                font-size: 1.8rem;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .content-wrapper {
+                flex-direction: column;
+            }
+
+            .image-container {
+                max-width: 100%;
+            }
+
+            .timeline::after {
+                left: 31px;
+                /* 移动竖线到左侧 */
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+                float: none;
+                text-align: left;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+                float: none;
+            }
+
+            .timeline-dot {
+                left: 21px;
+                right: auto;
+            }
+
+            .timeline-item:nth-child(odd) {
+                text-align: left;
+                padding-right: 25px;
             }
         }
     </style>
@@ -98,25 +1239,285 @@
                 <li><a href="about.html">关于我</a></li>
                 <li><a href="contact.html">联系我</a></li>
                 <li><a href="portfolio.html">爱好/作品页</a></li>
+                <li id="theme-toggle-container">
+                    <button id="theme-toggle">☀️</button>
+                </li>
             </ul>
         </nav>
     </header>
     <main>
-        <h1>欢迎来到我的个人主页</h1>
-        <p>我是傅馨源，是一名大三学生</p>
-        <section>
-            <h2>我的工作</h2>
-            <p>我目前专注于<strong>神经网络研究</strong>和<em>机器学习</em>。</p>
-            <img src="images/profile.jpg" alt="我的个人照片">
-            <hr>
+        <section id="hero">
+            <h1 id="typewriter"></h1>
+            <p>欢迎来到我的个人空间</p>
         </section>
 
+        <h1>欢迎来到我的个人主页</h1>
+        <p>我是傅馨源，是一名大三学生</p>
 
+        <section>
+            <h2>互动式人生时间轴</h2>
+            <p>以下是我人生中的重要时刻和经历：</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2023年9月</div>
+                        <h3>步入大学</h3>
+                        <p>开始了我的大学生活，选择了计算机科学专业</p>
+                        <div class="timeline-desc">
+                            <p>这是我人生的重要转折点，第一次离开家乡，来到新的城市学习。大学的第一年充满了挑战和新鲜感。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2024年3月</div>
+                        <h3>第一次参与项目开发</h3>
+                        <p>加入了学院的创新实验室，参与第一个Web开发项目</p>
+                        <div class="timeline-desc">
+                            <p>在这个项目中，我负责前端开发，学习了HTML、CSS和JavaScript的基础知识，为我的前端开发之路奠定了基础。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2024年6月</div>
+                        <h3>机器学习启蒙</h3>
+                        <p>参加了学校的机器学习研讨会，开始对AI产生浓厚兴趣</p>
+                        <div class="timeline-desc">
+                            <p>这次研讨会让我认识到机器学习的强大潜力，我开始自学Python和基本的机器学习算法，为后续的研究打下基础。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025年3月</div>
+                        <h3>神经网络深入研究</h3>
+                        <p>开始专注于神经网络的研究，完成第一个图像识别项目</p>
+                        <div class="timeline-desc">
+                            <p>使用TensorFlow和Keras构建了一个卷积神经网络，成功实现了对CIFAR-10数据集的图像分类，准确率达到75%。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025年7月</div>
+                        <h3>前端深入学习</h3>
+                        <p>系统学习现代前端开发技术，包括React和Vue框架</p>
+                        <div class="timeline-desc">
+                            <p>意识到前端技术在现代Web开发中的重要性，我开始深入学习React框架，并完成了多个个人项目，包括这个个人网站。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>"我的足迹"互动地图</h2>
+            <p>以下是我曾经旅行过的城市和地方：</p>
+
+            <div id="map-container">
+                <div id="travel-map"></div>
+            </div>
+        </section>
+
+        <section>
+            <h2>我的工作</h2>
+            <div class="content-wrapper">
+                <div class="image-container">
+                    <img src="image/myphoto.jpg" alt="我的个人照片">
+                </div>
+                <div class="text-container">
+                    <p>我目前专注于<strong>神经网络研究</strong>和<em>机器学习</em>。</p>
+                    <p>我对人工智能领域充满热情，喜欢探索新的技术和方法。</p>
+                    <p>在我的研究中，我主要关注深度学习模型的优化和应用。</p>
+                </div>
+            </div>
+            <hr>
+        </section>
     </main>
     <footer>
         <p>联系我们：123456789</p>
-
     </footer>
+
+    <script src="common.js"></script>
+
+    <script>
+        // 动态打字机标题功能
+        document.addEventListener('DOMContentLoaded', function () {
+            const typewriterElement = document.getElementById('typewriter');
+            const texts = [
+                "你好，我是傅馨源",
+                "一名大三学生",
+                "专注于神经网络研究",
+                "热爱机器学习与AI"
+            ];
+            let textIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let typingSpeed = 100;
+
+            function typeWriter() {
+                const currentText = texts[textIndex];
+
+                if (isDeleting) {
+                    // 删除文字
+                    typewriterElement.textContent = currentText.substring(0, charIndex - 1);
+                    charIndex--;
+                    typingSpeed = 50; // 删除速度更快
+                } else {
+                    // 打字
+                    typewriterElement.textContent = currentText.substring(0, charIndex + 1);
+                    charIndex++;
+                    typingSpeed = 100; // 正常打字速度
+                }
+
+                // 判断状态转换
+                if (!isDeleting && charIndex === currentText.length) {
+                    // 完成打字，暂停一会儿然后开始删除
+                    isDeleting = true;
+                    typingSpeed = 2000; // 暂停2秒
+                } else if (isDeleting && charIndex === 0) {
+                    // 完成删除，切换到下一句话
+                    isDeleting = false;
+                    textIndex = (textIndex + 1) % texts.length;
+                    typingSpeed = 500; // 在开始新句子前暂停
+                }
+
+                setTimeout(typeWriter, typingSpeed);
+            }
+
+            // 启动打字机效果
+            setTimeout(typeWriter, 1000);
+
+            // 初始化时间轴交互
+            initTimeline();
+
+            // 初始化地图
+            initMap();
+        });
+
+        // 时间轴交互功能
+        function initTimeline() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+
+            timelineItems.forEach(item => {
+                const content = item.querySelector('.timeline-content');
+
+                // 鼠标悬停效果
+                item.addEventListener('mouseenter', () => {
+                    item.classList.add('active');
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    if (!content.classList.contains('show-desc')) {
+                        item.classList.remove('active');
+                    }
+                });
+
+                // 点击展开详情
+                content.addEventListener('click', (e) => {
+                    // 防止事件冒泡
+                    if (e.target.tagName === 'A') return;
+
+                    const desc = item.querySelector('.timeline-desc');
+                    const isShowing = desc.style.display === 'block';
+
+                    if (isShowing) {
+                        desc.style.display = 'none';
+                        content.classList.remove('show-desc');
+                        item.classList.remove('active');
+                    } else {
+                        // 先关闭所有其他描述
+                        document.querySelectorAll('.timeline-desc').forEach(d => {
+                            d.style.display = 'none';
+                        });
+                        document.querySelectorAll('.timeline-content').forEach(c => {
+                            c.classList.remove('show-desc');
+                        });
+                        document.querySelectorAll('.timeline-item').forEach(i => {
+                            i.classList.remove('active');
+                        });
+
+                        // 显示当前描述
+                        desc.style.display = 'block';
+                        content.classList.add('show-desc');
+                        item.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // 初始化地图
+        function initMap() {
+            // 创建地图实例
+            const map = L.map('travel-map').setView([35.8617, 104.1954], 4);
+
+            // 添加地图图层
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // 定义足迹地点数据
+            const locations = [
+                {
+                    name: "北京",
+                    coords: [39.9042, 116.4074],
+                    description: "中国的首都，拥有丰富的历史文化遗产",
+                    image: "https://via.placeholder.com/200x150?text=北京"
+                },
+                {
+                    name: "上海",
+                    coords: [31.2304, 121.4737],
+                    description: "中国最大的城市，现代化国际大都市",
+                    image: "https://via.placeholder.com/200x150?text=上海"
+                },
+                {
+                    name: "广州",
+                    coords: [23.1291, 113.2644],
+                    description: "南方重要城市，以美食和文化闻名",
+                    image: "https://via.placeholder.com/200x150?text=广州"
+                },
+                {
+                    name: "成都",
+                    coords: [30.5728, 104.0668],
+                    description: "四川省会，以大熊猫和美食闻名",
+                    image: "https://via.placeholder.com/200x150?text=成都"
+                },
+                {
+                    name: "杭州",
+                    coords: [30.2741, 120.1551],
+                    description: "浙江省会，以西湖和互联网产业闻名",
+                    image: "https://via.placeholder.com/200x150?text=杭州"
+                }
+            ];
+
+            // 添加标记点
+            locations.forEach(location => {
+                const marker = L.marker(location.coords).addTo(map);
+
+                // 创建弹出内容
+                const popupContent = `
+                    <div class="map-marker-popup">
+                        <h3>${location.name}</h3>
+                        <img src="${location.image}" alt="${location.name}">
+                        <p>${location.description}</p>
+                    </div>
+                `;
+
+                marker.bindPopup(popupContent);
+            });
+        }
+    </script>
 </body>
 
-</html>
+</html> -->

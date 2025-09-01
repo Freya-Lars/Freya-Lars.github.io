@@ -1,97 +1,214 @@
-   /* 全局样式 */
-   * {
-       margin: 0;
-       padding: 0;
-       box-sizing: border-box;
-       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-   }
+/* common.css */
+:root {
+    --bg-color: #f8f9fa;
+    --text-color: #333;
+    --header-bg: linear-gradient(135deg, #2c3e50, #4a69bd);
+    --section-bg: white;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --border-color: #eaeaea;
+}
 
-   body {
-       background-color: #f8f9fa;
-       color: #333;
-       line-height: 1.6;
-       background-image: linear-gradient(to bottom, #f1f5f9, #e5e9f0);
-       min-height: 100vh;
-       display: flex;
-       flex-direction: column;
-   }
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #f1f1f1;
+    --header-bg: linear-gradient(135deg, #0d1b2a, #1b263b);
+    --section-bg: #1e1e1e;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --border-color: #333;
+}
 
-   main {
-       padding: 40px 20px;
-       max-width: 1200px;
-       margin: 0 auto;
-       width: 100%;
-       flex: 1;
-   }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
 
-   /* 头部导航样式 */
-   header {
-       background: linear-gradient(135deg, #2c3e50, #4a69bd);
-       color: #fff;
-       padding: 15px 0;
-       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-       position: sticky;
-       top: 0;
-       z-index: 100;
-   }
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
-   nav ul {
-       list-style-type: none;
-       text-align: center;
-       padding: 0;
-       display: flex;
-       justify-content: center;
-       flex-wrap: wrap;
-   }
+main {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    flex: 1;
+}
 
-   nav ul li {
-       display: inline-block;
-       margin: 0 15px;
-   }
+/* 头部导航样式 */
+header {
+    background: var(--header-bg);
+    color: #fff;
+    padding: 15px 0;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
 
-   nav ul li a {
-       text-decoration: none;
-       color: #fff;
-       font-weight: 500;
-       font-size: 18px;
-       padding: 10px 15px;
-       border-radius: 30px;
-       transition: all 0.3s ease;
-       position: relative;
-   }
+nav ul {
+    list-style-type: none;
+    text-align: center;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
 
-   nav ul li a:hover {
-       background-color: rgba(255, 255, 255, 0.2);
-       transform: translateY(-2px);
-   }
+nav ul li {
+    display: inline-block;
+    margin: 0 15px;
+}
 
-   nav ul li a::after {
-       content: '';
-       position: absolute;
-       width: 0;
-       height: 2px;
-       bottom: 5px;
-       left: 50%;
-       background-color: #fff;
-       transition: all 0.3s ease;
-   }
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    position: relative;
+}
 
-   nav ul li a:hover::after {
-       width: 70%;
-       left: 15%;
-   }
+nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
 
-   /* 页脚样式 */
-   footer {
-       background: linear-gradient(135deg, #2c3e50, #4a69bd);
-       color: #fff;
-       text-align: center;
-       padding: 25px 0;
-       margin-top: 40px;
-   }
+#theme-toggle {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
 
-   footer p {
-       margin: 0;
-       color: #fff;
-       font-size: 1.1rem;
-   }
+#theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+/* 页脚样式 */
+footer {
+    background: var(--header-bg);
+    color: #fff;
+    text-align: center;
+    padding: 25px 0;
+    margin-top: 40px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    nav ul li {
+        margin: 10px 5px;
+    }
+}
+
+
+/* ==================== */
+/* Emoji 光标样式 */
+/* ==================== */
+
+/* 隐藏默认光标 */
+body {
+    cursor: none;
+}
+
+/* 确保可点击元素上有光标效果 */
+a,
+button,
+.clickable {
+    cursor: none !important;
+}
+
+/* Emoji 光标基础样式 */
+.emoji-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 24px;
+    transition: transform 0.1s ease;
+    display: none;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    transform: translate(-50%, -50%);
+}
+
+/* 光标跟随效果 */
+.cursor-follower {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(108, 92, 231, 0.3);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.4s ease, opacity 0.4s ease,
+        border-radius 0.4s ease, clip-path 0.4s ease,
+        border-color 0.4s ease, background-color 0.4s ease;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+/* 不同状态的光标样式 */
+.emoji-cursor.default {
+    display: block;
+}
+
+.emoji-cursor.hand {
+    display: block;
+}
+
+.emoji-cursor.heart {
+    display: block;
+}
+
+.emoji-cursor.star {
+    display: block;
+}
+
+.emoji-cursor.text {
+    display: block;
+}
+
+.emoji-cursor.link {
+    display: block;
+}
+
+.emoji-cursor.not-allowed {
+    display: block;
+}
+
+.emoji-cursor.loading {
+    display: block;
+}
+
+/* 响应式设计：在小屏幕上减小光标尺寸 */
+@media (max-width: 768px) {
+    .emoji-cursor {
+        font-size: 18px;
+    }
+
+    .cursor-follower {
+        width: 30px;
+        height: 30px;
+    }
+}

@@ -10,12 +10,13 @@
     <style>
         /* 文章内容样式 */
         article {
-            background-color: white;
+            background-color: var(--section-bg);
             border-radius: 12px;
             padding: 40px;
             margin: 40px 0;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 5px 20px var(--shadow-color);
             transition: transform 0.3s ease;
+            border: 1px solid var(--border-color);
         }
 
         article:hover {
@@ -24,7 +25,7 @@
 
         h1 {
             font-size: 3rem;
-            color: #2c3e50;
+            color: var(--text-color);
             text-align: center;
             margin-bottom: 30px;
             padding-bottom: 15px;
@@ -45,11 +46,11 @@
         }
 
         h2 {
-            color: #2c3e50;
+            color: var(--text-color);
             font-size: 2.2rem;
             margin: 0 0 25px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #eaeaea;
+            border-bottom: 2px solid var(--border-color);
             display: flex;
             align-items: center;
         }
@@ -57,15 +58,12 @@
         h2 i {
             margin-right: 15px;
             color: #4a69bd;
-            background: linear-gradient(135deg, #4a69bd, #2c3e50);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
         p {
             font-size: 1.2rem;
             margin-bottom: 20px;
-            color: #555;
+            color: var(--text-color);
             line-height: 1.8;
         }
 
@@ -78,7 +76,7 @@
             margin: 30px 0;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 25px var(--shadow-color);
         }
 
         iframe {
@@ -101,11 +99,1147 @@
             margin-bottom: 12px;
             font-size: 1.1rem;
             line-height: 1.7;
+            color: var(--text-color);
         }
 
         ol>li {
             font-weight: 600;
-            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        ul {
+            list-style: none;
+            margin-top: 10px;
+            margin-left: 30px;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        ul li:before {
+            content: "•";
+            color: #4a69bd;
+            font-weight: bold;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+
+        /* 项目卡片样式 */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .project-card {
+            background: var(--section-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: all 0.3s ease;
+            border-left: 5px solid #4a69bd;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--shadow-color);
+        }
+
+        .project-card h3 {
+            color: var(--text-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .project-card h3 i {
+            margin-right: 10px;
+            color: #4a69bd;
+        }
+
+        .project-card p {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        /* GitHub项目样式 */
+        #github-projects-container {
+            margin-bottom: 40px;
+        }
+
+        .language-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: var(--section-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-color);
+        }
+
+        .filter-btn:hover {
+            background: var(--header-bg);
+            color: white;
+        }
+
+        .filter-btn.active {
+            background: var(--header-bg);
+            color: white;
+        }
+
+        .github-project-card {
+            background: var(--section-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: all 0.3s ease;
+            border-left: 4px solid #4a69bd;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .github-project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px var(--shadow-color);
+        }
+
+        .github-project-card h4 {
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+        }
+
+        .github-project-card h4 a {
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .github-project-card h4 a:hover {
+            text-decoration: underline;
+            color: #4a69bd;
+        }
+
+        .github-project-card p {
+            color: var(--text-color);
+            flex-grow: 1;
+            margin: 0 0 15px;
+            opacity: 0.8;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .language-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--header-bg);
+            color: white;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .project-stats {
+            display: flex;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        .project-stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-color);
+        }
+
+        .error-message {
+            text-align: center;
+            padding: 40px;
+            color: #e74c3c;
+        }
+
+        .project-details {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eaecef;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .detail-label {
+            font-weight: 500;
+            color: #586069;
+        }
+
+        .detail-value {
+            color: #24292e;
+            word-break: break-all;
+            text-align: right;
+            max-width: 60%;
+        }
+
+        .loading,
+        .error-message {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: #586069;
+        }
+
+        .error-message i {
+            color: #cb2431;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .loading i {
+            color: #0366d6;
+        }
+
+        .topic-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .topic-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            background-color: #f1f8ff;
+            border-radius: 20px;
+            color: #0366d6;
+            font-size: 12px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            article {
+                padding: 25px;
+            }
+
+            main>nav ul {
+                gap: 15px;
+            }
+
+            main>nav ul li a {
+                font-size: 1.1rem;
+                padding: 8px 16px;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .project-stats {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+
+        @media (max-width: 480px) {
+            header nav ul li a {
+                font-size: 16px;
+                padding: 8px 12px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            article {
+                padding: 20px;
+            }
+
+            main>nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+
+        .github-project-card {
+            transition: opacity 0.3s ease, transform 0.3s ease, display 0.3s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我</a></li>
+                <li><a href="contact.html">联系我</a></li>
+                <li><a href="portfolio.html">爱好/作品页</a></li>
+                <li id="theme-toggle-container">
+                    <button id="theme-toggle">☀️</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>我的爱好与作品</h1>
+
+        <nav>
+            <ul>
+                <li><a href="#hobby"><i class="fas fa-heart"></i> 爱好</a></li>
+                <li><a href="#work"><i class="fas fa-briefcase"></i> 作品</a></li>
+            </ul>
+        </nav>
+
+        <article id="hobby">
+            <h2><i class="fas fa-camera"></i>我的爱好</h2>
+            <p>我喜欢摄影、旅行、看书、听歌。这些爱好让我的生活更加丰富多彩，也让我有机会从不同角度观察和体验世界。</p>
+            <p>下面是我在旅行过程中拍摄的视频：</p>
+
+            <div class="video-container">
+                <iframe src="image/video.mp4" title="我的旅行vlog"></iframe>
+            </div>
+
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3><i class="fas fa-camera-retro"></i> 摄影</h3>
+                    <p>喜欢捕捉生活中的美好瞬间，擅长风景和人像摄影。</p>
+                </div>
+                <div class="project-card">
+                    <h3><i class="fas fa-plane"></i> 旅行</h3>
+                    <p>已经游历过国内15个省份，喜欢探索不同的文化和风景。</p>
+                </div>
+                <div class="project-card">
+                    <h3><i class="fas fa-book"></i> 阅读</h3>
+                    <p>每年阅读超过30本书，喜欢科幻、历史和哲学类书籍。</p>
+                </div>
+                <div class="project-card">
+                    <h3><i class="fas fa-music"></i> 音乐</h3>
+                    <p>喜欢听古典音乐和独立音乐，也会弹奏琵琶。</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="work">
+            <h2><i class="fas fa-laptop-code"></i>我的作品</h2>
+
+            <!-- GitHub项目容器 -->
+            <div id="github-projects-container">
+                <h3><i class="fab fa-github"></i> GitHub项目</h3>
+                <div id="github-filters" class="language-filters"></div>
+                <div id="github-projects" class="project-grid"></div>
+            </div>
+
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3><i class="fas fa-trophy"></i> 比赛竞赛项目</h3>
+                    <ul>
+                        <li>国创项目</li>
+                        <li>省创项目</li>
+                        <li>校创项目</li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <h3><i class="fas fa-flask"></i> 科研项目经历</h3>
+                    <ul>
+                        <li>基于深度学习的图像识别系统</li>
+                        <li>基于强化学习的智能体控制</li>
+                        <li>基于神经网络的语音识别系统</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px; color: var(--text-color); font-size: 1.5rem;">项目详情</h3>
+            <ol>
+                <li>比赛竞赛项目
+                    <ul>
+                        <li>1. 国创 </li>
+                        <li>2. 省创 </li>
+                        <li>3. 校创 </li>
+                    </ul>
+                </li>
+                <li>科研项目经历
+                    <ul>
+                        <li>1. 基于深度学习的图像识别系统 </li>
+                        <li>2. 基于强化学习的智能体控制 </li>
+                        <li>3. 基于神经网络的语音识别系统</li>
+                    </ul>
+                </li>
+            </ol>
+        </article>
+    </main>
+
+    <footer>
+        <p>联系我们：123456789 | 邮箱：example@email.com</p>
+    </footer>
+
+    <script src="common.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const GITHUB_USERNAME = 'Freya-Lars';
+            const projectsContainer = document.getElementById('github-projects');
+            const filtersContainer = document.getElementById('github-filters');
+
+            class ProjectCard {
+                constructor(repoData) {
+                    this.name = repoData.name;
+                    this.description = repoData.description || '暂无描述';
+                    this.language = repoData.language || '未知';
+                    this.htmlUrl = repoData.html_url;
+                    this.stars = repoData.stargazers_count;
+                    this.forks = repoData.forks_count;
+                    this.topics = repoData.topics || [];
+                    this.id = repoData.id;
+                    this.nodeId = repoData.node_id;
+                    this.ownerLogin = repoData.owner?.login || '未知';
+                    this.ownerId = repoData.owner?.id || '未知';
+                    this.size = repoData.size;
+                    this.watchers = repoData.watchers_count;
+                    this.openIssues = repoData.open_issues_count;
+                    this.createdAt = new Date(repoData.created_at).toLocaleDateString();
+                    this.updatedAt = new Date(repoData.updated_at).toLocaleDateString();
+                    this.pushedAt = new Date(repoData.pushed_at).toLocaleDateString();
+                    this.defaultBranch = repoData.default_branch;
+                    this.visibility = repoData.visibility || '公开';
+                    this.archived = repoData.archived ? '是' : '否';
+                    this.disabled = repoData.disabled ? '是' : '否';
+                    this.license = repoData.license?.name || '无';
+                }
+
+                render() {
+                    const card = document.createElement('div');
+                    card.className = 'github-project-card';
+                    card.dataset.language = this.language;
+
+                    card.innerHTML = `
+                        <h4><a href="${this.htmlUrl}" target="_blank" rel="noopener">${this.name}</a></h4>
+                        <p>${this.description}</p>
+                        
+                        <div class="project-meta">
+                            <span class="language-tag">${this.language}</span>
+                            <div class="project-stats">
+                                <span class="project-stat"><i class="fas fa-star"></i> ${this.stars}</span>
+                                <span class="project-stat"><i class="fas fa-code-branch"></i> ${this.forks}</span>
+                                <span class="project-stat"><i class="fas fa-eye"></i> ${this.watchers}</span>
+                            </div>
+                        </div>
+                        
+                        ${this.topics.length > 0 ? `
+                            <div class="topic-list">
+                                ${this.topics.map(topic => `<span class="topic-tag">${topic}</span>`).join('')}
+                            </div>
+                        ` : ''}
+                        
+                        <div class="project-details">
+                            <div class="detail-item">
+                                <span class="detail-label">ID:</span>
+                                <span class="detail-value">${this.id}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Node ID:</span>
+                                <span class="detail-value">${this.nodeId}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">所有者:</span>
+                                <span class="detail-value">${this.ownerLogin} (ID: ${this.ownerId})</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">大小:</span>
+                                <span class="detail-value">${this.size} KB</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">问题数:</span>
+                                <span class="detail-value">${this.openIssues}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">创建时间:</span>
+                                <span class="detail-value">${this.createdAt}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">更新时间:</span>
+                                <span class="detail-value">${this.updatedAt}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">最后推送:</span>
+                                <span class="detail-value">${this.pushedAt}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">默认分支:</span>
+                                <span class="detail-value">${this.defaultBranch}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">可见性:</span>
+                                <span class="detail-value">${this.visibility}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">许可证:</span>
+                                <span class="detail-value">${this.license}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">已归档:</span>
+                                <span class="detail-value">${this.archived}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">已禁用:</span>
+                                <span class="detail-value">${this.disabled}</span>
+                            </div>
+                        </div>
+                    `;
+
+                    return card;
+                }
+            }
+
+            async function fetchGitHubRepos(username) {
+                try {
+                    projectsContainer.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> 正在加载GitHub项目...</div>';
+
+                    const apiUrl = `https://api.github.com/users/${username}/repos?sort=updated&per_page=20`;
+                    console.log('正在请求:', apiUrl);
+
+                    const response = await fetch(apiUrl);
+                    console.log('API响应状态:', response.status, response.statusText);
+
+                    const rateLimitRemaining = response.headers.get('x-ratelimit-remaining');
+                    const rateLimitLimit = response.headers.get('x-ratelimit-limit');
+                    console.log('API速率限制:', `${rateLimitRemaining}/${rateLimitLimit}次请求剩余`);
+
+                    if (!response.ok) {
+                        let errorMsg = `GitHub API错误: ${response.status} ${response.statusText}`;
+                        if (response.status === 403) {
+                            errorMsg += ' (API速率限制，请稍后重试)';
+                            const rateLimitReset = response.headers.get('x-ratelimit-reset');
+                            if (rateLimitReset) {
+                                const resetTime = new Date(rateLimitReset * 1000);
+                                errorMsg += ` 重置时间: ${resetTime.toLocaleTimeString()}`;
+                            }
+                        } else if (response.status === 404) {
+                            errorMsg += ' (用户不存在或没有公开仓库)';
+                        }
+                        throw new Error(errorMsg);
+                    }
+
+                    const repos = await response.json();
+                    console.log('获取到的仓库数据:', repos);
+                    console.log(`共获取到 ${repos.length} 个仓库`);
+
+                    return repos;
+                } catch (error) {
+                    console.error('获取GitHub仓库失败:', error);
+                    projectsContainer.innerHTML = `
+                        <div class="error-message">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>无法加载项目: ${error.message}</p>
+                            <p>请检查控制台获取详细信息</p>
+                        </div>
+                    `;
+                    return [];
+                }
+            }
+
+            async function fetchGitHubReposWithCache(username) {
+                const cacheKey = `github_repos_${username}`;
+                const cacheTimeKey = `github_repos_time_${username}`;
+                const now = Date.now();
+
+                const cachedData = localStorage.getItem(cacheKey);
+                const cacheTime = localStorage.getItem(cacheTimeKey);
+
+                if (cachedData && cacheTime && (now - parseInt(cacheTime)) < 60 * 60 * 1000) {
+                    console.log('使用缓存数据');
+                    return JSON.parse(cachedData);
+                }
+
+                const repos = await fetchGitHubRepos(username);
+
+                if (repos.length > 0) {
+                    localStorage.setItem(cacheKey, JSON.stringify(repos));
+                    localStorage.setItem(cacheTimeKey, now.toString());
+                    console.log('数据已缓存');
+                }
+
+                return repos;
+            }
+
+            function getUniqueLanguages(repos) {
+                const languages = repos.map(repo => repo.language || '未知')
+                    .filter(language => language !== null);
+                return [...new Set(languages)];
+            }
+
+            function createLanguageFilters(languages) {
+                filtersContainer.innerHTML = '';
+
+                const allButton = document.createElement('button');
+                allButton.textContent = '全部';
+                allButton.className = 'filter-btn active';
+                allButton.dataset.language = 'all';
+                filtersContainer.appendChild(allButton);
+
+                languages.forEach(language => {
+                    const button = document.createElement('button');
+                    button.textContent = language;
+                    button.className = 'filter-btn';
+                    button.dataset.language = language;
+                    filtersContainer.appendChild(button);
+                });
+
+                setupFiltering();
+            }
+
+            function setupFiltering() {
+                const filterButtons = document.querySelectorAll('.filter-btn');
+                const projectCards = document.querySelectorAll('.github-project-card');
+
+                filterButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        filterButtons.forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+
+                        const selectedLanguage = button.dataset.language;
+
+                        projectCards.forEach(card => {
+                            const cardLanguage = card.dataset.language;
+
+                            if (selectedLanguage === 'all' || cardLanguage === selectedLanguage) {
+                                card.style.display = 'block';
+                                setTimeout(() => {
+                                    card.style.opacity = '1';
+                                    card.style.transform = 'translateY(0)';
+                                }, 10);
+                            } else {
+                                card.style.opacity = '0';
+                                card.style.transform = 'translateY(20px)';
+                                setTimeout(() => {
+                                    card.style.display = 'none';
+                                }, 300);
+                            }
+                        });
+                    });
+                });
+            }
+
+            function renderProjects(repos) {
+                projectsContainer.innerHTML = '';
+
+                if (repos.length === 0) {
+                    projectsContainer.innerHTML = `
+                        <div class="loading">
+                            <i class="fas fa-info-circle"></i>
+                            <p>暂无公开项目</p>
+                            <p>这可能是因为：</p>
+                            <ul>
+                                <li>您的GitHub账户没有公开仓库</li>
+                                <li>用户名不正确</li>
+                                <li>API速率限制</li>
+                            </ul>
+                            <p>请访问 <a href="https://github.com/${GITHUB_USERNAME}" target="_blank">您的GitHub主页</a> 确认</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                repos.forEach(repo => {
+                    const projectCard = new ProjectCard(repo);
+                    projectsContainer.appendChild(projectCard.render());
+                });
+
+                const languages = getUniqueLanguages(repos);
+                createLanguageFilters(languages);
+            }
+
+            async function initGitHubProjects() {
+                const repos = await fetchGitHubReposWithCache(GITHUB_USERNAME);
+                renderProjects(repos);
+            }
+
+            initGitHubProjects();
+        });
+    </script>
+
+
+
+    <!-- <script>
+        // GitHub项目功能
+        document.addEventListener('DOMContentLoaded', function () {
+            // 配置GitHub用户名和令牌
+            const GITHUB_USERNAME = 'Freya-Lars'; // 您的GitHub用户名
+
+
+            // 获取DOM元素
+            const projectsContainer = document.getElementById('github-projects');
+            const filtersContainer = document.getElementById('github-filters');
+
+
+
+            // ProjectCard类
+            class ProjectCard {
+                constructor(repoData) {
+                    this.name = repoData.name;
+                    this.description = repoData.description || '暂无描述';
+                    this.language = repoData.language || '未知';
+                    this.htmlUrl = repoData.html_url;
+                    this.stars = repoData.stargazers_count;
+                    this.forks = repoData.forks_count;
+                    this.topics = repoData.topics || [];
+
+                    // 新增的详细信息
+                    this.id = repoData.id;
+                    this.nodeId = repoData.node_id;
+                    this.ownerLogin = repoData.owner?.login || '未知';
+                    this.ownerId = repoData.owner?.id || '未知';
+                    this.size = repoData.size;
+                    this.watchers = repoData.watchers_count;
+                    this.openIssues = repoData.open_issues_count;
+                    this.createdAt = new Date(repoData.created_at).toLocaleDateString();
+                    this.updatedAt = new Date(repoData.updated_at).toLocaleDateString();
+                    this.pushedAt = new Date(repoData.pushed_at).toLocaleDateString();
+                    this.defaultBranch = repoData.default_branch;
+                    this.visibility = repoData.visibility || '公开';
+                    this.archived = repoData.archived ? '是' : '否';
+                    this.disabled = repoData.disabled ? '是' : '否';
+                    this.license = repoData.license?.name || '无';
+                }
+
+                render() {
+                    const card = document.createElement('div');
+                    card.className = 'github-project-card';
+                    card.dataset.language = this.language;
+
+                    card.innerHTML = `
+                        <h4><a href="${this.htmlUrl}" target="_blank" rel="noopener">${this.name}</a></h4>
+                        <p>${this.description}</p>
+                        
+                        <div class="project-meta">
+                            <span class="language-tag">${this.language}</span>
+                            <div class="project-stats">
+                                <span class="project-stat"><i class="fas fa-star"></i> ${this.stars}</span>
+                                <span class="project-stat"><i class="fas fa-code-branch"></i> ${this.forks}</span>
+                                <span class="project-stat"><i class="fas fa-eye"></i> ${this.watchers}</span>
+                            </div>
+                        </div>
+                        
+                        ${this.topics.length > 0 ? `
+                            <div class="topic-list">
+                                ${this.topics.map(topic => `<span class="topic-tag">${topic}</span>`).join('')}
+                            </div>
+                        ` : ''}
+                        
+                        <div class="project-details">
+                            <div class="detail-item">
+                                <span class="detail-label">ID:</span>
+                                <span class="detail-value">${this.id}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Node ID:</span>
+                                <span class="detail-value">${this.nodeId}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">所有者:</span>
+                                <span class="detail-value">${this.ownerLogin} (ID: ${this.ownerId})</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">大小:</span>
+                                <span class="detail-value">${this.size} KB</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">问题数:</span>
+                                <span class="detail-value">${this.openIssues}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">创建时间:</span>
+                                <span class="detail-value">${this.createdAt}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">更新时间:</span>
+                                <span class="detail-value">${this.updatedAt}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">最后推送:</span>
+                                <span class="detail-value">${this.pushedAt}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">默认分支:</span>
+                                <span class="detail-value">${this.defaultBranch}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">可见性:</span>
+                                <span class="detail-value">${this.visibility}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">许可证:</span>
+                                <span class="detail-value">${this.license}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">已归档:</span>
+                                <span class="detail-value">${this.archived}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">已禁用:</span>
+                                <span class="detail-value">${this.disabled}</span>
+                            </div>
+                        </div>
+                    `;
+
+                    return card;
+                }
+            }
+
+            // 从GitHub API获取仓库数据
+            async function fetchGitHubRepos(username) {
+                try {
+                    projectsContainer.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> 正在加载GitHub项目...</div>';
+
+                    const apiUrl = `https://api.github.com/users/Freya-Lars/repos?sort=updated&per_page=20`;
+                    console.log('正在请求:', apiUrl);
+
+                    // 准备请求头
+                    const headers = {};
+                    if (GITHUB_TOKEN) {
+                        headers['Authorization'] = `token ${GITHUB_TOKEN}`;
+                    }
+
+                    const response = await fetch(apiUrl, {
+                        headers: headers
+                    });
+
+                    console.log('API响应状态:', response.status, response.statusText);
+
+                    // 检查速率限制
+                    const rateLimitRemaining = response.headers.get('x-ratelimit-remaining');
+                    const rateLimitLimit = response.headers.get('x-ratelimit-limit');
+                    console.log('API速率限制:', `${rateLimitRemaining}/${rateLimitLimit}次请求剩余`);
+
+                    if (!response.ok) {
+                        let errorMsg = `GitHub API错误: ${response.status} ${response.statusText}`;
+                        if (response.status === 403) {
+                            errorMsg += ' (API速率限制，请稍后重试)';
+                            const rateLimitReset = response.headers.get('x-ratelimit-reset');
+                            if (rateLimitReset) {
+                                const resetTime = new Date(rateLimitReset * 1000);
+                                errorMsg += ` 重置时间: ${resetTime.toLocaleTimeString()}`;
+                            }
+                        } else if (response.status === 404) {
+                            errorMsg += ' (用户不存在或没有公开仓库)';
+                        } else if (response.status === 401) {
+                            errorMsg += ' (认证失败，请检查访问令牌)';
+                        }
+                        throw new Error(errorMsg);
+                    }
+
+                    const repos = await response.json();
+                    console.log('获取到的仓库数据:', repos);
+                    console.log(`共获取到 ${repos.length} 个仓库`);
+
+                    return repos;
+                } catch (error) {
+                    console.error('获取GitHub仓库失败:', error);
+                    projectsContainer.innerHTML = `
+                        <div class="error-message">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>无法加载项目: ${error.message}</p>
+                            <p>请检查控制台获取详细信息</p>
+                        </div>
+                    `;
+                    return [];
+                }
+            }
+
+            // 带缓存的API请求
+            async function fetchGitHubReposWithCache(username) {
+                const cacheKey = `github_repos_${username}`;
+                const cacheTimeKey = `github_repos_time_${username}`;
+
+                // 检查缓存是否有效（1小时缓存）
+                const cachedData = localStorage.getItem(cacheKey);
+                const cacheTime = localStorage.getItem(cacheTimeKey);
+                const now = Date.now();
+
+                if (cachedData && cacheTime && (now - parseInt(cacheTime)) < 60 * 60 * 1000) {
+                    console.log('使用缓存数据');
+                    return JSON.parse(cachedData);
+                }
+
+                // 没有有效缓存，从API获取
+                const repos = await fetchGitHubRepos(username);
+
+                // 保存到缓存
+                if (repos.length > 0) {
+                    localStorage.setItem(cacheKey, JSON.stringify(repos));
+                    localStorage.setItem(cacheTimeKey, now.toString());
+                    console.log('数据已缓存');
+                }
+
+                return repos;
+            }
+
+            // 获取所有独特的编程语言
+            function getUniqueLanguages(repos) {
+                const languages = repos.map(repo => repo.language || '未知')
+                    .filter(language => language !== null);
+                return [...new Set(languages)];
+            }
+
+            // 创建语言筛选按钮
+            function createLanguageFilters(languages) {
+                filtersContainer.innerHTML = '';
+
+                // 添加"全部"按钮
+                const allButton = document.createElement('button');
+                allButton.textContent = '全部';
+                allButton.className = 'filter-btn active';
+                allButton.dataset.language = 'all';
+                filtersContainer.appendChild(allButton);
+
+                // 为每种语言添加按钮
+                languages.forEach(language => {
+                    const button = document.createElement('button');
+                    button.textContent = language;
+                    button.className = 'filter-btn';
+                    button.dataset.language = language;
+                    filtersContainer.appendChild(button);
+                });
+
+                // 设置筛选功能
+                setupFiltering();
+            }
+
+            // 设置筛选功能
+            function setupFiltering() {
+                const filterButtons = document.querySelectorAll('.filter-btn');
+                const projectCards = document.querySelectorAll('.github-project-card');
+
+                filterButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        // 更新按钮激活状态
+                        filterButtons.forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+
+                        // 筛选项目
+                        const selectedLanguage = button.dataset.language;
+
+                        projectCards.forEach(card => {
+                            const cardLanguage = card.dataset.language;
+
+                            if (selectedLanguage === 'all' || cardLanguage === selectedLanguage) {
+                                card.style.display = 'block';
+                                setTimeout(() => {
+                                    card.style.opacity = '1';
+                                    card.style.transform = 'translateY(0)';
+                                }, 10);
+                            } else {
+                                card.style.opacity = '0';
+                                card.style.transform = 'translateY(20px)';
+                                setTimeout(() => {
+                                    card.style.display = 'none';
+                                }, 300);
+                            }
+                        });
+                    });
+                });
+            }
+
+            // 渲染项目卡片
+            function renderProjects(repos) {
+                projectsContainer.innerHTML = '';
+
+                if (repos.length === 0) {
+                    projectsContainer.innerHTML = `
+                        <div class="loading">
+                            <i class="fas fa-info-circle"></i>
+                            <p>暂无公开项目</p>
+                            <p>这可能是因为：</p>
+                            <ul>
+                                <li>您的GitHub账户没有公开仓库</li>
+                                <li>用户名不正确</li>
+                                <li>API速率限制</li>
+                            </ul>
+                            <p>请访问 <a href="https://github.com/${GITHUB_USERNAME}" target="_blank">您的GitHub主页</a> 确认</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                repos.forEach(repo => {
+                    const projectCard = new ProjectCard(repo);
+                    projectsContainer.appendChild(projectCard.render());
+                });
+
+                // 创建筛选按钮
+                const languages = getUniqueLanguages(repos);
+                createLanguageFilters(languages);
+            }
+
+            // 初始化GitHub项目
+            async function initGitHubProjects() {
+                const repos = await fetchGitHubReposWithCache(GITHUB_USERNAME);
+                renderProjects(repos);
+            }
+
+            // 启动GitHub项目加载
+            initGitHubProjects();
+        });
+    </script> -->
+</body>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱好与作品</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="common.css">
+    <style>
+        /* 文章内容样式 */
+        article {
+            background-color: var(--section-bg);
+            border-radius: 12px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 5px 20px var(--shadow-bg);
+            transition: transform 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        article:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #4a69bd;
+            position: relative;
+        }
+
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: #4a69bd;
+            border-radius: 2px;
+        }
+
+        h2 {
+            color: var(--text-color);
+            font-size: 2.2rem;
+            margin: 0 0 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+
+        h2 i {
+            margin-right: 15px;
+            color: #4a69bd;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            line-height: 1.8;
+        }
+
+        /* 视频容器样式 */
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            margin: 30px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* 列表样式 */
+        ol,
+        ul {
+            margin-left: 20px;
+            margin-bottom: 25px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-color);
+        }
+
+        ol>li {
+            font-weight: 600;
             margin-bottom: 20px;
             font-size: 1.3rem;
         }
@@ -141,22 +1275,22 @@
         }
 
         .project-card {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            background: var(--section-color);
             border-radius: 12px;
             padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px var(--shadow-color);
             transition: all 0.3s ease;
             border-left: 5px solid #4a69bd;
         }
 
         .project-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            background: linear-gradient(135deg, #e9ecef, #dee2e6);
+            box-shadow: 0 10px 25px var(--shadow-color);
         }
 
         .project-card h3 {
-            color: #2c3e50;
+            color: var(--text-color);
+            ;
             margin-bottom: 15px;
             font-size: 1.4rem;
             display: flex;
@@ -170,16 +1304,12 @@
 
         .project-card p {
             font-size: 1.1rem;
-            color: #666;
+            color: var(--text-color);
             margin: 0;
         }
 
         /* 响应式设计 */
         @media (max-width: 768px) {
-            header nav ul li {
-                margin: 5px 10px;
-            }
-
             h1 {
                 font-size: 2.5rem;
             }
@@ -241,6 +1371,9 @@
                 <li><a href="about.html">关于我</a></li>
                 <li><a href="contact.html">联系我</a></li>
                 <li><a href="portfolio.html">爱好/作品页</a></li>
+                <li id="theme-toggle-container">
+                    <button id="theme-toggle">☀️</button>
+                </li>
             </ul>
         </nav>
     </header>
@@ -287,6 +1420,8 @@
         <article id="work">
             <h2><i class="fas fa-laptop-code"></i>我的作品</h2>
 
+
+
             <div class="project-grid">
                 <div class="project-card">
                     <h3><i class="fas fa-trophy"></i> 比赛竞赛项目</h3>
@@ -307,29 +1442,18 @@
                 </div>
             </div>
 
-            <h3 style="margin-top: 30px; color: #2c3e50; font-size: 1.5rem;">项目详情</h3>
-            <ol>
-                <li>比赛竞赛项目
-                    <ul>
-                        <li>1. 国创 </li>
-                        <li>2. 省创 </li>
-                        <li>3. 校创 </li>
-                    </ul>
-                </li>
-                <li>科研项目经历
-                    <ul>
-                        <li>1. 基于深度学习的图像识别系统 </li>
-                        <li>2. 基于强化学习的智能体控制 </li>
-                        <li>3. 基于神经网络的语音识别系统</li>
-                    </ul>
-                </li>
-            </ol>
+
+
+
+
+            
         </article>
     </main>
 
     <footer>
         <p>联系我们：123456789 | 邮箱：example@email.com</p>
     </footer>
+    <script src="common.js"></script>
 </body>
 
-</html>
+</html> -->
